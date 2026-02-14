@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CategoryModal from "./CategoryModal";
 import EmailPopup from "./EmailPopup";
+import wellnessTreeImg from "@/assets/wellness-tree.png";
 
 export interface WellnessCategory {
   id: string;
@@ -78,23 +79,25 @@ const categories: WellnessCategory[] = [
   },
 ];
 
-// Tree layout positions (percentage-based for responsiveness)
-const treeLayout: { id: string; cx: number; cy: number; part: "root" | "trunk" | "branch" | "leaf" }[] = [
-  { id: "core-daily", cx: 50, cy: 88, part: "root" },
-  { id: "digest-gut", cx: 50, cy: 68, part: "trunk" },
-  { id: "calm-mood-sleep", cx: 24, cy: 48, part: "branch" },
-  { id: "focus-cognition", cx: 76, cy: 48, part: "branch" },
-  { id: "immunity-longevity", cx: 18, cy: 28, part: "branch" },
-  { id: "active-performance", cx: 82, cy: 28, part: "branch" },
-  { id: "beauty-structure", cx: 50, cy: 18, part: "branch" },
-  { id: "gummies", cx: 50, cy: 6, part: "leaf" },
+// Hotspot positions mapped to the tree image (% from top-left)
+const hotspots: { id: string; x: number; y: number; part: "root" | "trunk" | "branch-left" | "branch-right" | "canopy" | "crown" }[] = [
+  { id: "core-daily",        x: 50, y: 90, part: "root" },
+  { id: "digest-gut",        x: 50, y: 68, part: "trunk" },
+  { id: "calm-mood-sleep",   x: 22, y: 55, part: "branch-left" },
+  { id: "focus-cognition",   x: 78, y: 55, part: "branch-right" },
+  { id: "immunity-longevity",x: 18, y: 38, part: "branch-left" },
+  { id: "active-performance",x: 82, y: 38, part: "branch-right" },
+  { id: "beauty-structure",  x: 50, y: 22, part: "canopy" },
+  { id: "gummies",           x: 50, y: 8,  part: "crown" },
 ];
 
-const partColors: Record<string, { fill: string; stroke: string; text: string }> = {
-  root: { fill: "hsl(30, 25%, 35%)", stroke: "hsl(30, 20%, 28%)", text: "hsl(40, 33%, 97%)" },
-  trunk: { fill: "hsl(30, 20%, 42%)", stroke: "hsl(30, 15%, 35%)", text: "hsl(40, 33%, 97%)" },
-  branch: { fill: "hsl(145, 35%, 38%)", stroke: "hsl(145, 30%, 28%)", text: "hsl(40, 33%, 97%)" },
-  leaf: { fill: "hsl(28, 60%, 50%)", stroke: "hsl(28, 50%, 40%)", text: "hsl(40, 33%, 97%)" },
+const hotspotStyles: Record<string, string> = {
+  "root":         "bg-amber-800/80 hover:bg-amber-800/95 text-amber-50",
+  "trunk":        "bg-amber-700/80 hover:bg-amber-700/95 text-amber-50",
+  "branch-left":  "bg-green-700/80 hover:bg-green-700/95 text-green-50",
+  "branch-right": "bg-green-700/80 hover:bg-green-700/95 text-green-50",
+  "canopy":       "bg-green-600/80 hover:bg-green-600/95 text-green-50",
+  "crown":        "bg-amber-500/85 hover:bg-amber-500 text-amber-950",
 };
 
 const WellnessTree = () => {
@@ -106,7 +109,6 @@ const WellnessTree = () => {
     const cat = categories.find((c) => c.id === catId);
     if (cat) {
       setSelectedCategory(cat);
-      // Show email popup on first category click (once per browser)
       const newCount = clickCount + 1;
       setClickCount(newCount);
       if (newCount === 1 && !localStorage.getItem("wellfino_popup_shown")) {
@@ -129,79 +131,33 @@ const WellnessTree = () => {
         </p>
       </div>
 
-      {/* SVG Tree */}
-      <div className="mx-auto max-w-2xl">
-        <svg
-          viewBox="0 0 100 100"
+      {/* Tree with hotspot overlays */}
+      <div className="relative mx-auto max-w-lg select-none">
+        <img
+          src={wellnessTreeImg}
+          alt="Illustrated wellness tree with clickable branches"
           className="w-full"
-          role="img"
-          aria-label="Interactive wellness tree with clickable categories"
-        >
-          {/* Tree trunk line */}
-          <line x1="50" y1="85" x2="50" y2="22" stroke="hsl(30, 20%, 60%)" strokeWidth="1.2" strokeLinecap="round" />
-          {/* Branch lines */}
-          <line x1="50" y1="55" x2="26" y2="48" stroke="hsl(145, 25%, 55%)" strokeWidth="0.6" />
-          <line x1="50" y1="55" x2="74" y2="48" stroke="hsl(145, 25%, 55%)" strokeWidth="0.6" />
-          <line x1="35" y1="40" x2="20" y2="28" stroke="hsl(145, 25%, 55%)" strokeWidth="0.6" />
-          <line x1="65" y1="40" x2="80" y2="28" stroke="hsl(145, 25%, 55%)" strokeWidth="0.6" />
-          <line x1="50" y1="22" x2="50" y2="10" stroke="hsl(145, 25%, 55%)" strokeWidth="0.6" />
+          draggable={false}
+        />
 
-          {/* Root lines */}
-          <line x1="50" y1="85" x2="42" y2="95" stroke="hsl(30, 20%, 55%)" strokeWidth="0.5" />
-          <line x1="50" y1="85" x2="50" y2="96" stroke="hsl(30, 20%, 55%)" strokeWidth="0.5" />
-          <line x1="50" y1="85" x2="58" y2="95" stroke="hsl(30, 20%, 55%)" strokeWidth="0.5" />
-
-          {/* Category nodes */}
-          {treeLayout.map((node) => {
-            const colors = partColors[node.part];
-            const cat = categories.find((c) => c.id === node.id)!;
-            const isGummy = node.part === "leaf";
-            const rx = isGummy ? 9 : 12;
-            const ry = isGummy ? 4.5 : 5;
-
-            return (
-              <g
-                key={node.id}
-                onClick={() => handleCategoryClick(node.id)}
-                className="cursor-pointer"
-                role="button"
-                tabIndex={0}
-                aria-label={`Explore ${cat.label} category`}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    handleCategoryClick(node.id);
-                  }
-                }}
-              >
-                <ellipse
-                  cx={node.cx}
-                  cy={node.cy}
-                  rx={rx}
-                  ry={ry}
-                  fill={colors.fill}
-                  stroke={colors.stroke}
-                  strokeWidth="0.4"
-                  className="transition-all duration-200 hover:brightness-110"
-                  style={{ filter: "drop-shadow(0 0.5px 1px rgba(0,0,0,0.15))" }}
-                />
-                <text
-                  x={node.cx}
-                  y={node.cy + 0.5}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  fill={colors.text}
-                  fontSize="2.3"
-                  fontFamily="'DM Sans', sans-serif"
-                  fontWeight="500"
-                  className="pointer-events-none select-none"
-                >
-                  {cat.label}
-                </text>
-              </g>
-            );
-          })}
-        </svg>
+        {/* Clickable hotspots */}
+        {hotspots.map((spot) => {
+          const cat = categories.find((c) => c.id === spot.id)!;
+          return (
+            <button
+              key={spot.id}
+              onClick={() => handleCategoryClick(spot.id)}
+              aria-label={`Explore ${cat.label} category`}
+              className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full px-3 py-1.5 text-xs font-semibold shadow-lg backdrop-blur-sm transition-all duration-200 hover:scale-110 hover:shadow-xl sm:px-4 sm:py-2 sm:text-sm ${hotspotStyles[spot.part]}`}
+              style={{
+                left: `${spot.x}%`,
+                top: `${spot.y}%`,
+              }}
+            >
+              {cat.label}
+            </button>
+          );
+        })}
       </div>
 
       {/* How it works */}
@@ -215,13 +171,7 @@ const WellnessTree = () => {
         </p>
       </div>
 
-      {/* Category Modal */}
-      <CategoryModal
-        category={selectedCategory}
-        onClose={() => setSelectedCategory(null)}
-      />
-
-      {/* Email Popup (first click only) */}
+      <CategoryModal category={selectedCategory} onClose={() => setSelectedCategory(null)} />
       <EmailPopup open={showPopup} onClose={() => setShowPopup(false)} />
     </section>
   );
