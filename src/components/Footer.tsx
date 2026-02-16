@@ -33,8 +33,8 @@ const Footer = () => {
           <div>
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">Shop</h4>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
-              <li><a href="https://shop.wellfino.com" className="transition-colors hover:text-primary">All Products</a></li>
-              <li><a href="https://shop.wellfino.com" className="transition-colors hover:text-primary">Best Sellers</a></li>
+              <li><a href="https://wellfino.printify.me" className="transition-colors hover:text-primary">All Products</a></li>
+              <li><a href="https://wellfino.printify.me" className="transition-colors hover:text-primary">Best Sellers</a></li>
             </ul>
           </div>
 
@@ -44,8 +44,8 @@ const Footer = () => {
             <ul className="space-y-2.5 text-sm text-muted-foreground">
               <li><span>GDME LLC</span></li>
               <li>
-                <a href="https://shop.wellfino.com" className="transition-colors hover:text-primary">
-                  shop.wellfino.com
+                <a href="https://wellfino.printify.me" className="transition-colors hover:text-primary">
+                  wellfino.printify.me
                 </a>
               </li>
             </ul>
