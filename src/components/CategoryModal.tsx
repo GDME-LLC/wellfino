@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { X, ShoppingBag, ArrowLeft } from "lucide-react";
-import type { WellnessCategory } from "./WellnessTree";
+import type { WellnessCategory } from "@/data/categories";
 
 interface Props {
   category: WellnessCategory | null;
