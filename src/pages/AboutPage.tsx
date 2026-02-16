@@ -87,10 +87,10 @@ const AboutPage = () => {
           <p className="text-muted-foreground">
             When you're ready to purchase, secure checkout happens on{" "}
             <a
-              href="https://shop.wellfino.com"
+              href="https://wellfino.printify.me"
               className="font-medium text-primary underline underline-offset-2 hover:text-primary/80"
             >
-              shop.wellfino.com
+              wellfino.printify.me
             </a>
             .
           </p>

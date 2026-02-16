@@ -30,7 +30,7 @@ const HeroSection = () => {
           </p>
           <div className="flex flex-wrap gap-4">
             <a
-              href="https://shop.wellfino.com"
+              href="https://wellfino.printify.me"
               className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-medium text-primary-foreground shadow-lg transition-all hover:shadow-xl hover:brightness-110"
             >
               <ShoppingBag className="h-4 w-4" />

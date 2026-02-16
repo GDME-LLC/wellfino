@@ -41,7 +41,7 @@ const Nav = () => {
         {/* CTA + Mobile toggle */}
         <div className="flex items-center gap-3">
           <a
-            href="https://shop.wellfino.com"
+            href="https://wellfino.printify.me"
             className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-sm transition-all hover:shadow-md hover:brightness-110"
           >
             <ShoppingBag className="h-4 w-4" />

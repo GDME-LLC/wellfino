@@ -23,10 +23,10 @@ const WellnessTreePage = () => {
               <span className="font-medium text-foreground">How it works:</span>{" "}
               Browse and discover here on wellfino.com. Secure checkout happens on{" "}
               <a
-                href="https://shop.wellfino.com"
+                href="https://wellfino.printify.me"
                 className="font-medium text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
               >
-                shop.wellfino.com
+                wellfino.printify.me
               </a>
               .
             </p>
