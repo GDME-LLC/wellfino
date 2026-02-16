@@ -25,8 +25,8 @@ const HeroSection = () => {
             <em className="not-italic text-primary-foreground/90">Rooted in Science</em>
           </h1>
           <p className="mb-8 text-lg leading-relaxed text-background/80">
-            Wellfino curates the supplements that actually matter—backed by research,
-            organized by purpose, and delivered with confidence.
+            Extensive research goes into every product we select—allowing us to
+            curate the perfect stack for your wellness needs.
           </p>
           <div className="flex flex-wrap gap-4">
             <a
