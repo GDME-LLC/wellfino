@@ -11,7 +11,7 @@ const values = [
   {
     icon: ShieldCheck,
     title: "Uncompromising Quality",
-    text: "We only curate brands that prioritize third-party testing, clean labeling, and transparent sourcing.",
+    text: "We only partner with brands that prioritize third-party testing, clean labeling, and transparent sourcing.",
   },
   {
     icon: Leaf,
