@@ -161,7 +161,7 @@ const WellnessTree = () => {
         <img
           src={wellnessTreeImg}
           alt="Illustrated wellness tree with clickable branches representing supplement categories"
-          className="w-full drop-shadow-2xl"
+          className="w-full mix-blend-multiply"
           draggable={false}
         />
 
