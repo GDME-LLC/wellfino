@@ -8,15 +8,15 @@ const HeroSection = () => {
       <div className="absolute inset-0">
         <img
           src={heroImage}
-          alt="Wellness lifestyle"
+          alt="Wellfino Digest Core Probiotics in a forest setting"
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/40 to-transparent" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-20">
-        <div className="max-w-xl">
+        <div className="max-w-lg">
           <h1
             className="mb-6 text-4xl font-bold tracking-tight text-background sm:text-5xl lg:text-6xl"
             style={{ fontFamily: "'Playfair Display', serif" }}
