@@ -9,7 +9,7 @@ const props = [
   {
     icon: ShieldCheck,
     title: "Trusted Quality",
-    description: "We only curate supplements from brands with rigorous third-party testing.",
+    description: "We only carry supplements from brands with rigorous third-party testing.",
   },
   {
     icon: Leaf,
@@ -31,7 +31,7 @@ const ValueProps = () => {
           We've set a <em className="not-italic text-primary">higher standard</em>
         </h2>
         <p className="mx-auto max-w-2xl text-muted-foreground">
-          Wellfino isn't just another supplement store. We curate with intention.
+          Wellfino isn't just another supplement store. Every selection is intentional.
         </p>
       </div>
 
