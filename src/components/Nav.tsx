@@ -4,7 +4,6 @@ import { ShoppingBag, Menu, X } from "lucide-react";
 import wellfinoLogo from "@/assets/wellfino-logo.jpg";
 
 const navLinks = [
-  { label: "Wellness Tree", href: "/wellness-tree" },
   { label: "About", href: "/about" },
   { label: "Learn", href: "/learn" },
 ];

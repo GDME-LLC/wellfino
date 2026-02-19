@@ -14,8 +14,8 @@ const CategoryPage = () => {
         <Nav />
         <main className="mx-auto max-w-3xl px-6 py-24 text-center">
           <h1 className="mb-4 text-3xl font-bold">Category not found</h1>
-          <Link to="/wellness-tree" className="text-primary underline underline-offset-2">
-            Back to the Wellness Tree
+          <Link to="/" className="text-primary underline underline-offset-2">
+            Back to Home
           </Link>
         </main>
         <Footer />
@@ -31,11 +31,11 @@ const CategoryPage = () => {
         <section className="border-b border-border/40 bg-muted/30">
           <div className="mx-auto max-w-4xl px-6 py-20 text-center">
             <Link
-              to="/wellness-tree"
+              to="/"
               className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
             >
               <ArrowLeft className="h-4 w-4" />
-              Wellness Tree
+              Home
             </Link>
             <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">
               {category.label}
