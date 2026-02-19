@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ShoppingBag, Menu, X } from "lucide-react";
-import wellfinoLogo from "@/assets/wellfino-logo.png";
+import wellfinoLogo from "@/assets/wellfino-logo.jpg";
 
 const navLinks = [
   { label: "Wellness Tree", href: "/wellness-tree" },
@@ -18,7 +18,7 @@ const Nav = () => {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img src={wellfinoLogo} alt="Wellfino" className="h-14 w-auto" />
+          <img src={wellfinoLogo} alt="Wellfino" className="h-20 w-auto" style={{ mixBlendMode: 'multiply' }} />
         </Link>
 
         {/* Desktop links */}
