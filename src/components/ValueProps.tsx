@@ -19,7 +19,7 @@ const props = [
   {
     icon: Heart,
     title: "Personalized",
-    description: "Explore by health goal and build a routine that actually fits your life.",
+    description: "Explore by health goal and build a custom supplement regimen that actually fits your life.",
   },
 ];
 
