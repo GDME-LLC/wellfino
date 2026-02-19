@@ -4,7 +4,7 @@ const props = [
   {
     icon: FlaskConical,
     title: "Science-First",
-    description: "Every recommendation is backed by peer-reviewed research and clinical evidence.",
+    description: "Our entire product catalog is backed by peer-reviewed research and clinical evidence.",
   },
   {
     icon: ShieldCheck,
