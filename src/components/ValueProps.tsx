@@ -9,7 +9,7 @@ const props = [
   {
     icon: ShieldCheck,
     title: "Trusted Quality",
-    description: "We only carry supplements from brands with rigorous third-party testing.",
+    description: "We only carry supplements from manufacturers with rigorous third-party testing.",
   },
   {
     icon: Leaf,
