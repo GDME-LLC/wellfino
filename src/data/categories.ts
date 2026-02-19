@@ -25,7 +25,7 @@ const categories: WellnessCategory[] = [
     description:
       "Core daily supplements like multivitamins, omega-3s, and vitamin D form the bedrock of any wellness routine. Think of these as the roots that nourish everything else.",
     topPicks: ["Daily Multivitamin", "Omega-3 Fish Oil", "Vitamin D3 + K2", "Magnesium Complex"],
-    shopUrl: "https://wellfino.printify.me",
+    shopUrl: "https://shop.wellfino.com",
     image: coreDailyImg,
   },
   {
@@ -35,7 +35,7 @@ const categories: WellnessCategory[] = [
     description:
       "Probiotics, digestive enzymes, and gut-soothing formulas keep your microbiome thriving and your digestion smooth.",
     topPicks: ["Probiotic 50B CFU", "Digestive Enzyme Blend", "L-Glutamine Powder", "Prebiotic Fiber"],
-    shopUrl: "https://wellfino.printify.me",
+    shopUrl: "https://shop.wellfino.com",
     image: digestGutImg,
   },
   {
@@ -45,7 +45,7 @@ const categories: WellnessCategory[] = [
     description:
       "From magnesium glycinate to ashwagandha and melatonin, these picks help you unwind, rebalance, and wake up refreshed.",
     topPicks: ["Ashwagandha KSM-66", "Magnesium Glycinate", "L-Theanine", "Melatonin 3mg"],
-    shopUrl: "https://wellfino.printify.me",
+    shopUrl: "https://shop.wellfino.com",
     image: calmMoodSleepImg,
   },
   {
@@ -55,7 +55,7 @@ const categories: WellnessCategory[] = [
     description:
       "Nootropics, adaptogens, and brain-supporting nutrients help you think clearly, stay focused, and perform at your mental best.",
     topPicks: ["Lion's Mane Mushroom", "Alpha-GPC", "Bacopa Monnieri", "Rhodiola Rosea"],
-    shopUrl: "https://wellfino.printify.me",
+    shopUrl: "https://shop.wellfino.com",
     image: focusCognitionImg,
   },
   {
@@ -65,7 +65,7 @@ const categories: WellnessCategory[] = [
     description:
       "Support your immune system and cellular health with antioxidants, adaptogens, and targeted nutrients designed to help you thrive for decades.",
     topPicks: ["Vitamin C + Zinc", "Elderberry Extract", "NAC (N-Acetyl Cysteine)", "Quercetin"],
-    shopUrl: "https://wellfino.printify.me",
+    shopUrl: "https://shop.wellfino.com",
     image: immunityLongevityImg,
   },
   {
@@ -75,7 +75,7 @@ const categories: WellnessCategory[] = [
     description:
       "Performance supplements help you push further, recover faster, and feel stronger whether you're training hard or staying active.",
     topPicks: ["Creatine Monohydrate", "BCAA Complex", "Electrolyte Mix", "Tart Cherry Extract"],
-    shopUrl: "https://wellfino.printify.me",
+    shopUrl: "https://shop.wellfino.com",
     image: activePerformanceImg,
   },
   {
@@ -85,7 +85,7 @@ const categories: WellnessCategory[] = [
     description:
       "Collagen, biotin, and structural support nutrients nourish your skin, hair, nails, and joints—because looking good and feeling good go hand in hand.",
     topPicks: ["Marine Collagen Peptides", "Biotin 10,000mcg", "Hyaluronic Acid", "Silica Complex"],
-    shopUrl: "https://wellfino.printify.me",
+    shopUrl: "https://shop.wellfino.com",
     image: beautyStructureImg,
   },
   {
@@ -95,7 +95,7 @@ const categories: WellnessCategory[] = [
     description:
       "Our gummy picks make daily supplementation delicious and easy—perfect for anyone who wants wellness without the fuss.",
     topPicks: ["Multivitamin Gummies", "Elderberry Gummies", "Ashwagandha Gummies", "Collagen Gummies", "Probiotic Gummies"],
-    shopUrl: "https://wellfino.printify.me",
+    shopUrl: "https://shop.wellfino.com",
     image: gummiesImg,
   },
 ];
