@@ -24,7 +24,7 @@ const categories: WellnessCategory[] = [
     tagline: "Your foundation starts here",
     description:
       "Core daily supplements like multivitamins, omega-3s, and vitamin D form the bedrock of any wellness routine. Think of these as the roots that nourish everything else.",
-    topPicks: ["Daily Multivitamin", "Omega-3 Fish Oil", "Vitamin D3 + K2", "Magnesium Complex"],
+    topPicks: ["Multivitamin for Men (60 Capsules)", "Multivitamin for Women (60 Capsules)", "Omega 3 Fish Oil (60 Softgels)", "Vitamin K2 + D3 (60 Capsules)"],
     shopUrl: "https://shop.wellfino.com",
     image: coreDailyImg,
   },
@@ -34,7 +34,7 @@ const categories: WellnessCategory[] = [
     tagline: "A healthy gut supports everything",
     description:
       "Probiotics, digestive enzymes, and gut-soothing formulas keep your microbiome thriving and your digestion smooth.",
-    topPicks: ["Probiotic 50B CFU", "Digestive Enzyme Blend", "L-Glutamine Powder", "Prebiotic Fiber"],
+    topPicks: ["Probiotics (60 Capsules)", "Digestive Enzyme Blend (60 Capsules)"],
     shopUrl: "https://shop.wellfino.com",
     image: digestGutImg,
   },
@@ -43,8 +43,8 @@ const categories: WellnessCategory[] = [
     label: "Calm, Mood & Sleep",
     tagline: "Rest and calm are essentials",
     description:
-      "From magnesium glycinate to ashwagandha and melatonin, these picks help you unwind, rebalance, and wake up refreshed.",
-    topPicks: ["Ashwagandha KSM-66", "Magnesium Glycinate", "L-Theanine", "Melatonin 3mg"],
+      "From magnesium glycinate to 5-HTP and our dedicated sleep formula, these picks help you unwind, rebalance, and wake up refreshed.",
+    topPicks: ["5-HTP (60 Capsules)", "Sleep Supplement (60 Capsules)", "Magnesium Glycinate (60 Capsules)"],
     shopUrl: "https://shop.wellfino.com",
     image: calmMoodSleepImg,
   },
@@ -54,7 +54,7 @@ const categories: WellnessCategory[] = [
     tagline: "Sharpen your edge naturally",
     description:
       "Nootropics, adaptogens, and brain-supporting nutrients help you think clearly, stay focused, and perform at your mental best.",
-    topPicks: ["Lion's Mane Mushroom", "Alpha-GPC", "Bacopa Monnieri", "Rhodiola Rosea"],
+    topPicks: ["Brain Support Complex (60 Capsules)", "Mushroom Blend (60 Capsules)"],
     shopUrl: "https://shop.wellfino.com",
     image: focusCognitionImg,
   },
@@ -64,7 +64,7 @@ const categories: WellnessCategory[] = [
     tagline: "Play the long game",
     description:
       "Support your immune system and cellular health with antioxidants, adaptogens, and targeted nutrients designed to help you thrive for decades.",
-    topPicks: ["Vitamin C + Zinc", "Elderberry Extract", "NAC (N-Acetyl Cysteine)", "Quercetin"],
+    topPicks: ["Turmeric with BioPerine® (60 Capsules)", "CoQ10 Ubiquinone (30 Capsules)", "Acai Berry Complex (60 Capsules)", "Beetroot (60 Capsules)"],
     shopUrl: "https://shop.wellfino.com",
     image: immunityLongevityImg,
   },
@@ -74,7 +74,7 @@ const categories: WellnessCategory[] = [
     tagline: "Fuel your body the way it deserves",
     description:
       "Performance supplements help you push further, recover faster, and feel stronger whether you're training hard or staying active.",
-    topPicks: ["Creatine Monohydrate", "BCAA Complex", "Electrolyte Mix", "Tart Cherry Extract"],
+    topPicks: ["Creatine Monohydrate (300g)", "BCAA Grape (325g)", "BCAA Watermelon (325g)", "ION + Select Electrolyte (225g)", "L-Arginine (60 Capsules)"],
     shopUrl: "https://shop.wellfino.com",
     image: activePerformanceImg,
   },
@@ -83,8 +83,8 @@ const categories: WellnessCategory[] = [
     label: "Beauty & Structure",
     tagline: "True beauty radiates from within",
     description:
-      "Collagen, biotin, and structural support nutrients nourish your skin, hair, nails, and joints—because looking good and feeling good go hand in hand.",
-    topPicks: ["Marine Collagen Peptides", "Biotin 10,000mcg", "Hyaluronic Acid", "Silica Complex"],
+      "Collagen and structural support nutrients nourish your skin, hair, nails, and joints—because looking good and feeling good go hand in hand.",
+    topPicks: ["Collagen Peptides Type I & III (350g)"],
     shopUrl: "https://shop.wellfino.com",
     image: beautyStructureImg,
   },
@@ -94,7 +94,7 @@ const categories: WellnessCategory[] = [
     tagline: "Wellness without the pill fatigue",
     description:
       "Our gummy picks make daily supplementation delicious and easy—perfect for anyone who wants wellness without the fuss.",
-    topPicks: ["Multivitamin Gummies", "Elderberry Gummies", "Ashwagandha Gummies", "Collagen Gummies", "Probiotic Gummies"],
+    topPicks: ["Multivitamin Gummies for Adults (60 Gummies)", "Apple Cider Vinegar Gummies (60 Gummies)"],
     shopUrl: "https://shop.wellfino.com",
     image: gummiesImg,
   },
