@@ -4,6 +4,7 @@ import HeroSection from "@/components/HeroSection";
 import ValueProps from "@/components/ValueProps";
 import CategoryCards from "@/components/CategoryCards";
 import EmailCapture from "@/components/EmailCapture";
+import ChatWidget from "@/components/ChatWidget";
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
         <EmailCapture />
       </main>
       <Footer />
+      <ChatWidget />
     </div>
   );
 };
