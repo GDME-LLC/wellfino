@@ -20,18 +20,25 @@ const CategoryCards = () => {
             <Link
               key={cat.id}
               to={`/category/${cat.id}`}
-              className="group relative flex flex-col justify-end overflow-hidden rounded-2xl border border-border/50 bg-card p-6 transition-all hover:border-primary/30 hover:shadow-lg min-h-[200px]"
+              className="group relative flex flex-col justify-end overflow-hidden rounded-2xl border border-border/50 min-h-[240px] transition-all hover:border-primary/30 hover:shadow-lg"
             >
-              <div className="mb-auto">
-                <span className="inline-block h-2 w-2 rounded-full bg-primary/60 group-hover:bg-primary transition-colors" />
-              </div>
-              <div>
-                <h3 className="mb-1 text-lg font-semibold tracking-tight group-hover:text-primary transition-colors">
+              {/* Background image */}
+              <img
+                src={cat.image}
+                alt={cat.label}
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              {/* Dark gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
+
+              {/* Content */}
+              <div className="relative z-10 p-6">
+                <h3 className="mb-1 text-lg font-semibold tracking-tight text-white group-hover:text-primary transition-colors">
                   {cat.label}
                 </h3>
-                <p className="text-sm text-muted-foreground">{cat.tagline}</p>
+                <p className="text-sm text-white/70">{cat.tagline}</p>
               </div>
-              <ArrowRight className="absolute right-5 top-5 h-4 w-4 text-muted-foreground/40 transition-all group-hover:text-primary group-hover:translate-x-0.5" />
+              <ArrowRight className="absolute right-5 top-5 z-10 h-4 w-4 text-white/40 transition-all group-hover:text-primary group-hover:translate-x-0.5" />
             </Link>
           ))}
         </div>
