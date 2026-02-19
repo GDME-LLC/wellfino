@@ -31,7 +31,7 @@ const ValueProps = () => {
           We've set a <em className="not-italic text-primary">higher standard</em>
         </h2>
         <p className="mx-auto max-w-2xl text-muted-foreground">
-          Wellfino isn't just another supplement store. Every selection is intentional.
+          Every product in our collection has earned its place through extensive research and rigorous standards.
         </p>
       </div>
 
