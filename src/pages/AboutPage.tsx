@@ -52,7 +52,7 @@ const AboutPage = () => {
             works. We do the research so you don't have to.
           </p>
           <p className="text-lg leading-relaxed text-muted-foreground">
-            Our Wellness Tree organizes supplements by health goal—making it easy to
+            We organize supplements by health goal—making it easy to
             understand what you need, why it matters, and where to find it. Every product
             we recommend meets our strict criteria for quality, efficacy, and transparency.
           </p>

@@ -37,10 +37,10 @@ const HeroSection = () => {
               Shop supplements
             </a>
             <a
-              href="/wellness-tree"
+              href="/about"
               className="inline-flex items-center gap-2 rounded-full border border-background/30 bg-background/10 px-8 py-3.5 text-sm font-medium text-background backdrop-blur-sm transition-all hover:bg-background/20"
             >
-              Explore the tree
+              Learn more
             </a>
           </div>
         </div>
