@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Leaf, ShoppingBag, Menu, X } from "lucide-react";
+import { ShoppingBag, Menu, X } from "lucide-react";
+import wellfinoLogo from "@/assets/wellfino-logo.jpg";
 
 const navLinks = [
   { label: "Wellness Tree", href: "/wellness-tree" },
@@ -16,11 +17,8 @@ const Nav = () => {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/90 backdrop-blur-md">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 text-foreground">
-          <Leaf className="h-6 w-6 text-primary" />
-          <span className="text-xl font-semibold" style={{ fontFamily: "'Playfair Display', serif" }}>
-            Wellfino
-          </span>
+        <Link to="/" className="flex items-center">
+          <img src={wellfinoLogo} alt="Wellfino" className="h-10 w-auto" />
         </Link>
 
         {/* Desktop links */}
