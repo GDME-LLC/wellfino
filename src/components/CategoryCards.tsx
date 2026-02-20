@@ -3,14 +3,14 @@ import { ArrowRight } from "lucide-react";
 import categories from "@/data/categories";
 
 const categoryColors: Record<string, string> = {
-  "core-daily": "#E8D44D",
+  "core-daily": "#C8D84E",
   "digest-gut": "#5BC0EB",
   "calm-mood-sleep": "#4ADE80",
-  "focus-cognition": "#A78BFA",
-  "immunity-longevity": "#FACC15",
-  "active-performance": "#FB7185",
-  "beauty-structure": "#C4B5FD",
-  "gummies": "#2DD4BF",
+  "focus-cognition": "#9B8BCD",
+  "immunity-longevity": "#E8C94D",
+  "active-performance": "#F87171",
+  "beauty-structure": "#C4A8D8",
+  "gummies": "#F9A8C9",
 };
 
 const CategoryCards = () => {
