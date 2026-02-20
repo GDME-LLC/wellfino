@@ -12,7 +12,7 @@ const ChatWidget = () => {
     {
       role: "assistant",
       content:
-        "Hi there! 👋 I'm Wellfino's supplement advisor. Tell me about your wellness goals and I'll help you find the right products.",
+        "Hi! 👋 I'm your Wellfino supplement guide. Tell me about your wellness goals and I'll recommend the right products for you.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -21,27 +21,21 @@ const ChatWidget = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
+    if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [messages]);
 
   useEffect(() => {
-    if (open && inputRef.current) {
-      inputRef.current.focus();
-    }
+    if (open && inputRef.current) inputRef.current.focus();
   }, [open]);
 
   const send = useCallback(
     async (text: string) => {
       if (!text.trim() || isLoading) return;
-
       const userMsg: Msg = { role: "user", content: text.trim() };
       const updatedMessages = [...messages, userMsg];
       setMessages(updatedMessages);
       setInput("");
       setIsLoading(true);
-
       let assistantSoFar = "";
 
       try {
@@ -68,9 +62,7 @@ const ChatWidget = () => {
           setMessages((prev) => {
             const last = prev[prev.length - 1];
             if (last?.role === "assistant" && prev.length === updatedMessages.length + 1) {
-              return prev.map((m, i) =>
-                i === prev.length - 1 ? { ...m, content: assistantSoFar } : m
-              );
+              return prev.map((m, i) => (i === prev.length - 1 ? { ...m, content: assistantSoFar } : m));
             }
             return [...prev, { role: "assistant", content: assistantSoFar }];
           });
@@ -81,7 +73,6 @@ const ChatWidget = () => {
           const { done, value } = await reader.read();
           if (done) break;
           textBuffer += decoder.decode(value, { stream: true });
-
           let newlineIndex: number;
           while ((newlineIndex = textBuffer.indexOf("\n")) !== -1) {
             let line = textBuffer.slice(0, newlineIndex);
@@ -90,22 +81,15 @@ const ChatWidget = () => {
             if (line.startsWith(":") || line.trim() === "") continue;
             if (!line.startsWith("data: ")) continue;
             const jsonStr = line.slice(6).trim();
-            if (jsonStr === "[DONE]") {
-              streamDone = true;
-              break;
-            }
+            if (jsonStr === "[DONE]") { streamDone = true; break; }
             try {
               const parsed = JSON.parse(jsonStr);
               const content = parsed.choices?.[0]?.delta?.content as string | undefined;
               if (content) upsert(content);
-            } catch {
-              textBuffer = line + "\n" + textBuffer;
-              break;
-            }
+            } catch { textBuffer = line + "\n" + textBuffer; break; }
           }
         }
 
-        // flush remaining
         if (textBuffer.trim()) {
           for (let raw of textBuffer.split("\n")) {
             if (!raw) continue;
@@ -118,19 +102,14 @@ const ChatWidget = () => {
               const parsed = JSON.parse(jsonStr);
               const content = parsed.choices?.[0]?.delta?.content as string | undefined;
               if (content) upsert(content);
-            } catch {
-              /* ignore */
-            }
+            } catch { /* ignore */ }
           }
         }
       } catch (e) {
         console.error(e);
         setMessages((prev) => [
           ...prev,
-          {
-            role: "assistant",
-            content: "Sorry, I'm having trouble connecting right now. Please try again in a moment!",
-          },
+          { role: "assistant", content: "Sorry, I'm having trouble connecting right now. Please try again in a moment!" },
         ]);
       } finally {
         setIsLoading(false);
@@ -141,27 +120,26 @@ const ChatWidget = () => {
 
   return (
     <>
-      {/* Floating button */}
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform hover:scale-105 active:scale-95"
-          aria-label="Open chat"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground shadow-lg transition-transform hover:scale-105 active:scale-95"
+          aria-label="Open supplement guide"
         >
-          <MessageCircle className="h-6 w-6" />
+          <MessageCircle className="h-5 w-5" />
+          <span className="hidden sm:inline">Ask Wellfino</span>
         </button>
       )}
 
-      {/* Chat panel */}
       {open && (
-        <div className="fixed bottom-4 right-4 z-50 flex h-[500px] w-[380px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:bottom-6 sm:right-6">
-          {/* Header */}
-          <div className="flex items-center justify-between border-b border-border bg-primary px-4 py-3">
-            <div className="flex items-center gap-2">
+        <div className="fixed bottom-4 right-4 z-50 flex h-[520px] w-[380px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:bottom-6 sm:right-6">
+          <div className="flex items-center justify-between border-b border-border bg-primary px-5 py-3.5">
+            <div className="flex items-center gap-2.5">
               <MessageCircle className="h-5 w-5 text-primary-foreground" />
-              <span className="text-sm font-semibold text-primary-foreground">
-                Wellfino Advisor
-              </span>
+              <div>
+                <span className="text-sm font-semibold text-primary-foreground">Ask Wellfino</span>
+                <p className="text-[10px] text-primary-foreground/70">Supplement Guide</p>
+              </div>
             </div>
             <button
               onClick={() => setOpen(false)}
@@ -172,13 +150,9 @@ const ChatWidget = () => {
             </button>
           </div>
 
-          {/* Messages */}
           <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
             {messages.map((msg, i) => (
-              <div
-                key={i}
-                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-              >
+              <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                 <div
                   className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                     msg.role === "user"
@@ -205,12 +179,8 @@ const ChatWidget = () => {
             )}
           </div>
 
-          {/* Input */}
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              send(input);
-            }}
+            onSubmit={(e) => { e.preventDefault(); send(input); }}
             className="flex items-center gap-2 border-t border-border px-3 py-3"
           >
             <input
@@ -218,7 +188,7 @@ const ChatWidget = () => {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask about supplements..."
+              placeholder="What are your wellness goals?"
               className="flex-1 rounded-full border border-input bg-background px-4 py-2 text-sm outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
               disabled={isLoading}
             />
