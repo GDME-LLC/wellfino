@@ -2,6 +2,17 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import categories from "@/data/categories";
 
+const categoryColors: Record<string, string> = {
+  "core-daily": "#E8D44D",
+  "digest-gut": "#5BC0EB",
+  "calm-mood-sleep": "#4ADE80",
+  "focus-cognition": "#A78BFA",
+  "immunity-longevity": "#FACC15",
+  "active-performance": "#FB7185",
+  "beauty-structure": "#C4B5FD",
+  "gummies": "#2DD4BF",
+};
+
 const CategoryCards = () => {
   return (
     <section className="bg-muted/20 py-24">
@@ -27,13 +38,16 @@ const CategoryCards = () => {
                 alt={cat.label}
                 className="absolute inset-0 h-full w-full object-cover opacity-20 transition-opacity group-hover:opacity-30"
               />
-              <div className="relative z-10 p-6">
-                <h3 className="mb-1 text-base font-semibold tracking-tight text-foreground">
+              <ArrowRight className="absolute right-4 top-4 z-10 h-4 w-4 text-muted-foreground/40 transition-all group-hover:text-white group-hover:translate-x-0.5" />
+              <div
+                className="relative z-10 mt-auto rounded-b-2xl px-6 py-4"
+                style={{ backgroundColor: categoryColors[cat.id] || "#888" }}
+              >
+                <h3 className="mb-0.5 text-base font-semibold tracking-tight text-white">
                   {cat.label}
                 </h3>
-                <p className="text-xs text-muted-foreground">{cat.tagline}</p>
+                <p className="text-xs text-white/80">{cat.tagline}</p>
               </div>
-              <ArrowRight className="absolute right-4 top-4 z-10 h-4 w-4 text-muted-foreground/40 transition-all group-hover:text-primary group-hover:translate-x-0.5" />
             </Link>
           ))}
         </div>
