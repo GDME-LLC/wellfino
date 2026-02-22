@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wellfino</title>
+    <script>
+      // GitHub Pages SPA fallback:
+      // Redirect /some/path -> /#/some/path so the app can route.
+      var path = location.pathname;
+      var search = location.search;
+      var hash = location.hash;
+      location.replace("/#" + path + search + hash);
+    </script>
+  </head>
+  <body></body>
+</html>
