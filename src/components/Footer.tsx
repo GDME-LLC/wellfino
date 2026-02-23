@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import wellfinoLogoHybrid from "@/assets/wellfino-logo-hybrid.svg";
+import BrandLogo from "@/components/BrandLogo";
 
 const Footer = () => {
   return (
@@ -9,7 +9,7 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <div className="mb-4">
-              <img src={wellfinoLogoHybrid} alt="Wellfino" className="h-10 w-auto" />
+              <BrandLogo iconClassName="h-8 w-8" textClassName="text-3xl" />
             </div>
             <p className="text-sm leading-relaxed text-muted-foreground">
               Your wellness, rooted in science. Discover the supplements that actually matter.
