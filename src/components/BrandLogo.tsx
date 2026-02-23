@@ -1,21 +1,26 @@
 import { cn } from "@/lib/utils";
-import wellfinoIcon from "@/assets/wellfino-icon.svg";
+import wellfinoLabelLogo from "@/assets/wellfino-logo.jpg";
 
 type BrandLogoProps = {
   className?: string;
   iconClassName?: string;
-  textClassName?: string;
+  wordmarkClassName?: string;
 };
 
-const BrandLogo = ({ className, iconClassName, textClassName }: BrandLogoProps) => {
+const BrandLogo = ({ className, iconClassName, wordmarkClassName }: BrandLogoProps) => {
   return (
     <span className={cn("inline-flex items-center gap-2", className)}>
-      <img src={wellfinoIcon} alt="Wellfino icon" className={cn("h-9 w-9 object-contain", iconClassName)} />
-      <span
-        className={cn("text-5xl font-semibold leading-none tracking-tight text-foreground", textClassName)}
-        style={{ fontFamily: "'Playfair Display', serif" }}
-      >
-        Wellfino.
+      <img
+        src="/favicon.png"
+        alt="Wellfino icon"
+        className={cn("h-9 w-9 object-contain mix-blend-multiply", iconClassName)}
+      />
+      <span className={cn("inline-block h-10 w-[190px] overflow-hidden", wordmarkClassName)}>
+        <img
+          src={wellfinoLabelLogo}
+          alt="Wellfino"
+          className="h-full w-full object-cover object-[50%_84%] mix-blend-multiply"
+        />
       </span>
     </span>
   );
