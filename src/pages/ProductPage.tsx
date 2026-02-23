@@ -85,53 +85,62 @@ const toTransparentBackground = async (src: string) => {
     return src;
   }
 
+  const maxSize = 1200;
+  const scale = Math.min(1, maxSize / Math.max(image.naturalWidth, image.naturalHeight));
+  const width = Math.max(1, Math.round(image.naturalWidth * scale));
+  const height = Math.max(1, Math.round(image.naturalHeight * scale));
+
   const canvas = document.createElement("canvas");
-  canvas.width = image.naturalWidth;
-  canvas.height = image.naturalHeight;
+  canvas.width = width;
+  canvas.height = height;
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
   if (!ctx) {
     return src;
   }
 
-  ctx.drawImage(image, 0, 0);
+  ctx.drawImage(image, 0, 0, width, height);
 
   let imageData: ImageData;
   try {
-    imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    imageData = ctx.getImageData(0, 0, width, height);
   } catch {
     return src;
   }
 
-  const { data, width, height } = imageData;
+  const { data } = imageData;
   const total = width * height;
   const visited = new Uint8Array(total);
   const queue = new Int32Array(total);
   let head = 0;
   let tail = 0;
 
-  const corners = [
-    0,
-    width - 1,
-    (height - 1) * width,
-    (height - 1) * width + (width - 1),
-  ];
+  let rSum = 0;
+  let gSum = 0;
+  let bSum = 0;
+  let sampleCount = 0;
 
-  const avg = corners.reduce(
-    (acc, pixelIndex) => {
-      const o = pixelIndex * 4;
-      acc.r += data[o];
-      acc.g += data[o + 1];
-      acc.b += data[o + 2];
-      return acc;
-    },
-    { r: 0, g: 0, b: 0 }
-  );
+  const sample = (pixelIndex: number) => {
+    const o = pixelIndex * 4;
+    rSum += data[o];
+    gSum += data[o + 1];
+    bSum += data[o + 2];
+    sampleCount++;
+  };
+
+  for (let x = 0; x < width; x++) {
+    sample(x);
+    sample((height - 1) * width + x);
+  }
+  for (let y = 1; y < height - 1; y++) {
+    sample(y * width);
+    sample(y * width + (width - 1));
+  }
 
   const bg = {
-    r: Math.round(avg.r / corners.length),
-    g: Math.round(avg.g / corners.length),
-    b: Math.round(avg.b / corners.length),
+    r: Math.round(rSum / Math.max(1, sampleCount)),
+    g: Math.round(gSum / Math.max(1, sampleCount)),
+    b: Math.round(bSum / Math.max(1, sampleCount)),
   };
 
   const isNearBackground = (pixelIndex: number) => {
@@ -142,7 +151,11 @@ const toTransparentBackground = async (src: string) => {
     const dr = Math.abs(data[o] - bg.r);
     const dg = Math.abs(data[o + 1] - bg.g);
     const db = Math.abs(data[o + 2] - bg.b);
-    return dr + dg + db <= 78;
+    const diff = dr + dg + db;
+    const max = Math.max(data[o], data[o + 1], data[o + 2]);
+    const min = Math.min(data[o], data[o + 1], data[o + 2]);
+    const isNeutral = max - min <= 22;
+    return diff <= 132 || (isNeutral && diff <= 165);
   };
 
   const enqueue = (pixelIndex: number) => {
@@ -176,6 +189,43 @@ const toTransparentBackground = async (src: string) => {
     if (x < width - 1) enqueue(idx + 1);
     if (y > 0) enqueue(idx - width);
     if (y < height - 1) enqueue(idx + width);
+  }
+
+  // Feather near-background edge pixels to avoid a visible matte outline.
+  for (let y = 1; y < height - 1; y++) {
+    for (let x = 1; x < width - 1; x++) {
+      const idx = y * width + x;
+      const o = idx * 4;
+      if (data[o + 3] === 0) {
+        continue;
+      }
+
+      const n1 = (idx - 1) * 4;
+      const n2 = (idx + 1) * 4;
+      const n3 = (idx - width) * 4;
+      const n4 = (idx + width) * 4;
+      const touchesTransparent =
+        data[n1 + 3] === 0 ||
+        data[n2 + 3] === 0 ||
+        data[n3 + 3] === 0 ||
+        data[n4 + 3] === 0;
+
+      if (!touchesTransparent) {
+        continue;
+      }
+
+      const dr = Math.abs(data[o] - bg.r);
+      const dg = Math.abs(data[o + 1] - bg.g);
+      const db = Math.abs(data[o + 2] - bg.b);
+      const diff = dr + dg + db;
+      const max = Math.max(data[o], data[o + 1], data[o + 2]);
+      const min = Math.min(data[o], data[o + 1], data[o + 2]);
+      const isNeutral = max - min <= 24;
+
+      if (isNeutral && diff <= 180) {
+        data[o + 3] = Math.min(data[o + 3], 100);
+      }
+    }
   }
 
   ctx.putImageData(imageData, 0, 0);
