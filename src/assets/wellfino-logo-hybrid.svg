@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 280" role="img" aria-label="Wellfino logo">
+  <g transform="translate(48,28)" fill="none" stroke="#111111" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M140 78c-21-52-88-55-103-8-14 45 29 96 78 92 31-2 52-27 64-49 22-38 35-79 76-83 24-2 42 18 43 42 1 30-21 54-40 74-22 22-56 21-73-4-8-12-12-25-16-38"/>
+    <path d="M216 72c16 34 22 83 62 85 26 2 44-16 56-37 18-31 28-70 67-80"/>
+  </g>
+  <text x="280" y="224" fill="#111111" font-family="'Playfair Display', serif" font-size="112" font-weight="600" letter-spacing="0.2">
+    Wellfino.
+  </text>
+</svg>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Leaf } from "lucide-react";
+import wellfinoLogoHybrid from "@/assets/wellfino-logo-hybrid.svg";
 
 const Footer = () => {
   return (
@@ -8,11 +8,8 @@ const Footer = () => {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
-            <div className="mb-4 flex items-center gap-2">
-              <Leaf className="h-5 w-5 text-primary" />
-              <span className="text-lg font-semibold" style={{ fontFamily: "'Playfair Display', serif" }}>
-                Wellfino
-              </span>
+            <div className="mb-4">
+              <img src={wellfinoLogoHybrid} alt="Wellfino" className="h-10 w-auto" />
             </div>
             <p className="text-sm leading-relaxed text-muted-foreground">
               Your wellness, rooted in science. Discover the supplements that actually matter.

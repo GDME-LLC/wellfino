@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ShoppingBag, Menu, X, ChevronDown } from "lucide-react";
-import wellfinoLogo from "@/assets/wellfino-logo.jpg";
+import wellfinoLogoHybrid from "@/assets/wellfino-logo-hybrid.svg";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,7 +23,7 @@ const Nav = () => {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img src={wellfinoLogo} alt="Wellfino" className="h-20 w-auto" style={{ mixBlendMode: 'multiply' }} />
+          <img src={wellfinoLogoHybrid} alt="Wellfino" className="h-12 w-auto" />
         </Link>
 
         {/* Desktop links */}
