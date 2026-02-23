@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
 import products, { bestSellers } from "@/data/products";
@@ -9,6 +10,93 @@ const FRONT_IMAGE_KEYS = [
   "primaryImage",
   "imageFront",
 ] as const;
+
+const processedImageCache = new Map<string, string>();
+
+const transparentizeBlackBackground = async (src: string) => {
+  if (processedImageCache.has(src)) {
+    return processedImageCache.get(src)!;
+  }
+
+  const image = await new Promise<HTMLImageElement>((resolve, reject) => {
+    const img = new Image();
+    img.decoding = "async";
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error("Image load failed"));
+    img.src = src;
+  }).catch(() => null);
+
+  if (!image) {
+    return src;
+  }
+
+  const canvas = document.createElement("canvas");
+  canvas.width = image.naturalWidth;
+  canvas.height = image.naturalHeight;
+  const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+  if (!ctx) {
+    return src;
+  }
+
+  ctx.drawImage(image, 0, 0);
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const { data, width, height } = imageData;
+  const totalPixels = width * height;
+  const visited = new Uint8Array(totalPixels);
+  const queue = new Int32Array(totalPixels);
+  let head = 0;
+  let tail = 0;
+
+  const isNearBlack = (pixelIndex: number) => {
+    const offset = pixelIndex * 4;
+    return (
+      data[offset + 3] > 0 &&
+      data[offset] <= 24 &&
+      data[offset + 1] <= 24 &&
+      data[offset + 2] <= 24
+    );
+  };
+
+  const enqueueIfBackground = (pixelIndex: number) => {
+    if (pixelIndex < 0 || pixelIndex >= totalPixels || visited[pixelIndex]) {
+      return;
+    }
+    if (!isNearBlack(pixelIndex)) {
+      return;
+    }
+    visited[pixelIndex] = 1;
+    queue[tail++] = pixelIndex;
+  };
+
+  for (let x = 0; x < width; x++) {
+    enqueueIfBackground(x);
+    enqueueIfBackground((height - 1) * width + x);
+  }
+  for (let y = 1; y < height - 1; y++) {
+    enqueueIfBackground(y * width);
+    enqueueIfBackground(y * width + (width - 1));
+  }
+
+  while (head < tail) {
+    const index = queue[head++];
+    const offset = index * 4;
+    data[offset + 3] = 0;
+
+    const x = index % width;
+    const y = (index - x) / width;
+
+    if (x > 0) enqueueIfBackground(index - 1);
+    if (x < width - 1) enqueueIfBackground(index + 1);
+    if (y > 0) enqueueIfBackground(index - width);
+    if (y < height - 1) enqueueIfBackground(index + width);
+  }
+
+  ctx.putImageData(imageData, 0, 0);
+  const processed = canvas.toDataURL("image/png");
+  processedImageCache.set(src, processed);
+  return processed;
+};
 
 const getFrontImage = (product: (typeof products)[number]) => {
   const productWithImages = product as (typeof products)[number] & {
@@ -61,6 +149,34 @@ const getFrontImage = (product: (typeof products)[number]) => {
   return productFrontFallback;
 };
 
+const ProductThumbnail = ({ src, alt }: { src: string; alt: string }) => {
+  const [resolvedSrc, setResolvedSrc] = useState(src);
+
+  useEffect(() => {
+    let isActive = true;
+    setResolvedSrc(src);
+
+    transparentizeBlackBackground(src).then((processedSrc) => {
+      if (isActive) {
+        setResolvedSrc(processedSrc);
+      }
+    });
+
+    return () => {
+      isActive = false;
+    };
+  }, [src]);
+
+  return (
+    <img
+      src={resolvedSrc}
+      alt={alt}
+      className="h-36 w-full object-contain drop-shadow-[0_10px_22px_rgba(0,0,0,0.14)]"
+      loading="lazy"
+    />
+  );
+};
+
 const BestSellers = () => {
   const featured = bestSellers
     .map((id) => products.find((p) => p.id === id))
@@ -85,11 +201,9 @@ const BestSellers = () => {
             className="group flex flex-col rounded-2xl border border-border/50 bg-card p-6 transition-all hover:border-primary/30 hover:shadow-lg"
           >
             <div className="mb-4 rounded-2xl bg-transparent p-3">
-              <img
+              <ProductThumbnail
                 src={getFrontImage(product)}
                 alt={`${product.name} front mockup`}
-                className="h-36 w-full object-contain drop-shadow-[0_10px_22px_rgba(0,0,0,0.14)]"
-                loading="lazy"
               />
             </div>
             <span className="mb-2 text-xs font-medium uppercase tracking-wider text-primary">
