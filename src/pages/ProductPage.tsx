@@ -5,6 +5,65 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
 import products from "@/data/products";
+import productFrontFallback from "@/assets/wellfino-product-cutout.png";
+
+const FRONT_IMAGE_KEYS = [
+  "frontImage",
+  "mockupFront",
+  "primaryImage",
+  "imageFront",
+] as const;
+
+const getFrontImage = (product: (typeof products)[number]) => {
+  const productWithImages = product as (typeof products)[number] & {
+    [key: string]: unknown;
+    images?: Array<string | { src?: string; url?: string; alt?: string }>;
+  };
+
+  for (const key of FRONT_IMAGE_KEYS) {
+    const value = productWithImages[key];
+    if (typeof value === "string" && value) {
+      return value;
+    }
+  }
+
+  if (Array.isArray(productWithImages.images) && productWithImages.images.length > 0) {
+    const frontImage = productWithImages.images.find((entry) => {
+      if (typeof entry === "string") {
+        return entry.toLowerCase().includes("front");
+      }
+
+      const src = (entry.src || entry.url || "").toLowerCase();
+      const alt = (entry.alt || "").toLowerCase();
+      return src.includes("front") || alt.includes("front");
+    });
+
+    if (typeof frontImage === "string") {
+      return frontImage;
+    }
+
+    if (frontImage && typeof frontImage === "object") {
+      const src = frontImage.src || frontImage.url;
+      if (typeof src === "string" && src) {
+        return src;
+      }
+    }
+
+    const firstImage = productWithImages.images[0];
+    if (typeof firstImage === "string" && firstImage) {
+      return firstImage;
+    }
+
+    if (firstImage && typeof firstImage === "object") {
+      const src = firstImage.src || firstImage.url;
+      if (typeof src === "string" && src) {
+        return src;
+      }
+    }
+  }
+
+  return productFrontFallback;
+};
 
 const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -41,10 +100,12 @@ const ProductPage = () => {
           <div className="grid gap-12 lg:grid-cols-2">
             {/* Left — Image placeholder */}
             <div className="flex items-center justify-center rounded-2xl bg-muted/50 p-12">
-              <div className="text-center">
-                <ShoppingBag className="mx-auto mb-3 h-16 w-16 text-primary/30" />
-                <p className="text-sm text-muted-foreground">Product Image</p>
-              </div>
+              <img
+                src={getFrontImage(product)}
+                alt={`${product.name} front mockup`}
+                className="max-h-[520px] w-full object-contain"
+                loading="eager"
+              />
             </div>
 
             {/* Right — Info */}

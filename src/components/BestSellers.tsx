@@ -207,7 +207,7 @@ const ProductThumbnail = ({ src, alt }: { src: string; alt: string }) => {
     <img
       src={resolvedSrc}
       alt={alt}
-      className="h-36 w-full object-contain drop-shadow-[0_10px_22px_rgba(0,0,0,0.14)]"
+      className="h-36 w-full object-contain"
       loading="lazy"
     />
   );
