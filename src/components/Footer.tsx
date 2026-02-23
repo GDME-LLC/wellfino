@@ -9,7 +9,7 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <div className="mb-4">
-              <BrandLogo iconClassName="h-8 w-8" wordmarkClassName="h-8 w-[150px]" />
+              <BrandLogo imageClassName="h-10" />
             </div>
             <p className="text-sm leading-relaxed text-muted-foreground">
               Your wellness, rooted in science. Discover the supplements that actually matter.
