@@ -84,7 +84,7 @@ const BestSellers = () => {
             to={`/product/${product.id}`}
             className="group flex flex-col rounded-2xl border border-border/50 bg-card p-6 transition-all hover:border-primary/30 hover:shadow-lg"
           >
-            <div className="mb-4 rounded-2xl bg-[#F6F5F2] p-3">
+            <div className="mb-4 rounded-2xl bg-transparent p-3">
               <img
                 src={getFrontImage(product)}
                 alt={`${product.name} front mockup`}
