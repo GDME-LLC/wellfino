@@ -8,6 +8,7 @@ export interface Product {
   name: string;
   category: string;
   categoryId: string;
+  frontImage?: string;
   price: string;
   benefit: string;
   description: string;
@@ -25,6 +26,8 @@ const products: Product[] = [
     name: "Multivitamin for Men",
     category: "Core Daily",
     categoryId: "core-daily",
+    frontImage:
+      "https://cdn.shopify.com/s/files/1/0953/4255/9547/files/2263740304280216727_2048_custom.jpg?v=1771698831",
     price: "$24.99",
     benefit: "Complete daily nutrition optimized for men's health",
     description: "A comprehensive multivitamin designed to fill nutritional gaps in the modern diet. Covers 20+ essential vitamins and minerals men need daily.",
@@ -85,6 +88,8 @@ const products: Product[] = [
     name: "Omega 3 Fish Oil",
     category: "Core Daily",
     categoryId: "core-daily",
+    frontImage:
+      "https://cdn.shopify.com/s/files/1/0953/4255/9547/files/5138096422759131155_2048.jpg?v=1771698986",
     price: "$19.99",
     benefit: "Essential fatty acids for heart, brain, and joint health",
     description: "High-quality fish oil softgels delivering EPA and DHA — the omega-3 fatty acids your body can't produce on its own.",
@@ -141,6 +146,8 @@ const products: Product[] = [
     name: "Probiotics",
     category: "Digest & Gut",
     categoryId: "digest-gut",
+    frontImage:
+      "https://cdn.shopify.com/s/files/1/0953/4255/9547/files/15326666197597643335_2048.jpg?v=1771547496",
     price: "$22.99",
     benefit: "Multi-strain formula for digestive and immune balance",
     description: "A carefully selected blend of beneficial bacteria strains to support your gut microbiome, digestion, and immune function.",
@@ -169,6 +176,8 @@ const products: Product[] = [
     name: "Creatine Monohydrate",
     category: "Active & Performance",
     categoryId: "active-performance",
+    frontImage:
+      "https://cdn.shopify.com/s/files/1/0953/4255/9547/files/1679467406868221877_2048.jpg?v=1771705029",
     price: "$26.99",
     benefit: "The gold standard for strength, power, and recovery",
     description: "Pure creatine monohydrate — the most researched supplement in sports nutrition with over 500 peer-reviewed studies.",
@@ -196,6 +205,8 @@ const products: Product[] = [
     name: "Collagen Peptides Type I & III",
     category: "Beauty & Structure",
     categoryId: "beauty-structure",
+    frontImage:
+      "https://cdn.shopify.com/s/files/1/0953/4255/9547/files/6517868312660373249_2048.jpg?v=1771705681",
     price: "$29.99",
     benefit: "Supports skin elasticity, joints, hair, and nails",
     description: "Hydrolyzed collagen peptides that dissolve easily in any beverage. Types I & III provide the broadest structural support for skin, joints, and connective tissue.",
@@ -223,6 +234,8 @@ const products: Product[] = [
     name: "Magnesium Glycinate",
     category: "Calm, Mood & Sleep",
     categoryId: "calm-mood-sleep",
+    frontImage:
+      "https://cdn.shopify.com/s/files/1/0953/4255/9547/files/1811896512346118911_2048.jpg?v=1771546589",
     price: "$19.99",
     benefit: "Highly absorbable magnesium for relaxation and recovery",
     description: "Magnesium glycinate is one of the most bioavailable forms of magnesium — gentle on the stomach and effective for relaxation, sleep, and muscle recovery.",
