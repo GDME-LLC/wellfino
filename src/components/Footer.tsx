@@ -20,9 +20,10 @@ const Footer = () => {
           <div>
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">Explore</h4>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
-              
-              <li><Link to="/about" className="transition-colors hover:text-primary">About</Link></li>
-              <li><Link to="/learn" className="transition-colors hover:text-primary">Learn</Link></li>
+              <li><Link to="/stacks" className="transition-colors hover:text-primary">Stacks</Link></li>
+              <li><Link to="/guides" className="transition-colors hover:text-primary">Guides</Link></li>
+              <li><Link to="/quizzes" className="transition-colors hover:text-primary">Quizzes</Link></li>
+              <li><Link to="/quality" className="transition-colors hover:text-primary">Quality</Link></li>
             </ul>
           </div>
 
@@ -31,6 +32,8 @@ const Footer = () => {
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">Shop</h4>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
               <li><a href="https://shop.wellfino.com" className="transition-colors hover:text-primary">All Products</a></li>
+              <li><Link to="/shop-by-category" className="transition-colors hover:text-primary">Shop by Category</Link></li>
+              <li><Link to="/stacks" className="transition-colors hover:text-primary">Stacks</Link></li>
               <li><Link to="/best-sellers" className="transition-colors hover:text-primary">Best Sellers</Link></li>
             </ul>
           </div>

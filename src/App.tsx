@@ -11,6 +11,11 @@ import LearnPage from "./pages/LearnPage";
 import ProductPage from "./pages/ProductPage";
 import BestSellersPage from "./pages/BestSellersPage";
 import ShopByCategoryPage from "./pages/ShopByCategoryPage";
+import StacksPage from "./pages/StacksPage";
+import QuizzesPage from "./pages/QuizzesPage";
+import GuidesPage from "./pages/GuidesPage";
+import GuideArticlePage from "./pages/GuideArticlePage";
+import QualityPage from "./pages/QualityPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +33,11 @@ const App = () => (
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/best-sellers" element={<BestSellersPage />} />
           <Route path="/shop-by-category" element={<ShopByCategoryPage />} />
+          <Route path="/stacks" element={<StacksPage />} />
+          <Route path="/quizzes" element={<QuizzesPage />} />
+          <Route path="/guides" element={<GuidesPage />} />
+          <Route path="/guides/:slug" element={<GuideArticlePage />} />
+          <Route path="/quality" element={<QualityPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/learn" element={<LearnPage />} />
           <Route path="*" element={<NotFound />} />

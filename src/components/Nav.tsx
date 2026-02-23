@@ -10,9 +10,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const navLinks = [
+  { label: "Stacks", href: "/stacks" },
   { label: "Shop by Category", href: "/shop-by-category" },
+  { label: "Guides", href: "/guides" },
+  { label: "Quizzes", href: "/quizzes" },
+  { label: "Quality", href: "/quality" },
   { label: "About", href: "/about" },
-  { label: "Learn", href: "/learn" },
 ];
 
 const Nav = () => {
@@ -58,6 +61,9 @@ const Nav = () => {
             <DropdownMenuContent align="end" className="w-48">
               <DropdownMenuItem asChild>
                 <a href="https://shop.wellfino.com">All Products</a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/stacks">Stacks</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link to="/shop-by-category">Shop by Category</Link>
