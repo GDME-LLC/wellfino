@@ -84,12 +84,14 @@ const BestSellers = () => {
             to={`/product/${product.id}`}
             className="group flex flex-col rounded-2xl border border-border/50 bg-card p-6 transition-all hover:border-primary/30 hover:shadow-lg"
           >
-            <img
-              src={getFrontImage(product)}
-              alt={`${product.name} front mockup`}
-              className="mb-4 h-36 w-full object-contain bg-transparent border-0 shadow-none"
-              loading="lazy"
-            />
+            <div className="mb-4 rounded-2xl bg-[#F6F5F2] p-3">
+              <img
+                src={getFrontImage(product)}
+                alt={`${product.name} front mockup`}
+                className="h-36 w-full object-contain drop-shadow-[0_10px_22px_rgba(0,0,0,0.14)]"
+                loading="lazy"
+              />
+            </div>
             <span className="mb-2 text-xs font-medium uppercase tracking-wider text-primary">
               {product.category}
             </span>
