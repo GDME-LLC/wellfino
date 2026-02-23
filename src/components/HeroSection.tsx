@@ -30,13 +30,14 @@ const HeroSection = () => {
           <div className="flex flex-wrap gap-4">
             <a
               href="https://shop.wellfino.com"
+              data-shop-url="https://shop.wellfino.com"
               className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-medium text-primary-foreground shadow-lg transition-all hover:shadow-xl hover:brightness-110"
             >
               <ShoppingBag className="h-4 w-4" />
               Shop Best Sellers
             </a>
             <Link
-              to="/category/core-daily"
+              to="/shop-by-category"
               className="inline-flex items-center gap-2 rounded-full border border-background/30 bg-background/10 px-8 py-3.5 text-sm font-medium text-background backdrop-blur-sm transition-all hover:bg-background/20"
             >
               Browse Categories

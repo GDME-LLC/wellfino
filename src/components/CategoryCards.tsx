@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import categories from "@/data/categories";
 
@@ -28,9 +27,10 @@ const CategoryCards = () => {
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {categories.map((cat) => (
-            <Link
+            <a
               key={cat.id}
-              to={`/category/${cat.id}`}
+              href={cat.shopUrl}
+              data-shop-url={cat.shopUrl}
               className="group relative flex flex-col justify-end overflow-hidden rounded-2xl border border-border/40 bg-card min-h-[200px] transition-all hover:border-primary/30 hover:shadow-lg"
             >
               <img
@@ -48,7 +48,7 @@ const CategoryCards = () => {
                 </h3>
                 <p className="text-xs text-white/80">{cat.tagline}</p>
               </div>
-            </Link>
+            </a>
           ))}
         </div>
       </div>

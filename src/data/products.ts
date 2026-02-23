@@ -51,13 +51,15 @@ const products: Product[] = [
       { q: "How long until I notice results?", a: "Most people notice improved energy within 2-4 weeks of consistent daily use." },
       { q: "Is this safe for daily use?", a: "Yes. This is designed for long-term daily supplementation at safe, research-backed doses." },
     ],
-    shopUrl: "https://shop.wellfino.com",
+    shopUrl: "https://shop.wellfino.com/products/multivitamin-for-men-supplement-60-capsules",
   },
   {
     id: "multivitamin-women",
     name: "Multivitamin for Women",
     category: "Core Daily",
     categoryId: "core-daily",
+    frontImage:
+      "https://cdn.shopify.com/s/files/1/0953/4255/9547/files/13316461037794152959_2048.jpg?v=1771698850",
     price: "$24.99",
     benefit: "Complete daily nutrition designed for women's unique needs",
     description: "Formulated with iron, folate, and biotin alongside 20+ essential nutrients women need for energy, immunity, and overall wellness.",
@@ -81,7 +83,7 @@ const products: Product[] = [
       { q: "How long until I notice results?", a: "Energy improvements typically appear within 2-4 weeks. Skin and hair changes may take 6-8 weeks." },
       { q: "Can I combine this with other supplements?", a: "Absolutely. We recommend pairing with Omega-3 and Vitamin K2+D3 for a complete daily stack." },
     ],
-    shopUrl: "https://shop.wellfino.com",
+    shopUrl: "https://shop.wellfino.com/products/multivitamin-for-women-supplement-60-capsules",
   },
   {
     id: "omega-3",
@@ -111,7 +113,7 @@ const products: Product[] = [
       { q: "How long until I notice results?", a: "Joint and mood benefits typically emerge after 4-8 weeks of consistent use." },
       { q: "Can I take this with a multivitamin?", a: "Yes — omega-3s actually improve absorption of fat-soluble vitamins in your multi." },
     ],
-    shopUrl: "https://shop.wellfino.com",
+    shopUrl: "https://shop.wellfino.com/products/omega-3-fish-oil-supplement-60-softgels",
   },
   {
     id: "vitamin-k2-d3",
@@ -139,7 +141,7 @@ const products: Product[] = [
       { q: "How long until I notice results?", a: "Blood levels of vitamin D typically improve within 2-3 weeks. Bone health benefits are long-term." },
       { q: "Is 5000 IU safe daily?", a: "For most adults, yes. It's within the range recommended by many integrative health practitioners. Consult your doctor if you have concerns." },
     ],
-    shopUrl: "https://shop.wellfino.com",
+    shopUrl: "https://shop.wellfino.com/products/vitamin-k2-d3-supplement-60-capsules",
   },
   {
     id: "probiotics",
@@ -169,7 +171,7 @@ const products: Product[] = [
       { q: "How long until I notice results?", a: "Many people notice digestive improvements within 1-2 weeks. Full microbiome rebalancing may take 4-8 weeks." },
       { q: "Should I pair this with anything?", a: "Digestive enzymes complement probiotics well — they support nutrient breakdown while probiotics balance your gut flora." },
     ],
-    shopUrl: "https://shop.wellfino.com",
+    shopUrl: "https://shop.wellfino.com/products/probiotics-supplement-60-capsules",
   },
   {
     id: "creatine",
@@ -198,7 +200,7 @@ const products: Product[] = [
       { q: "When should I take it?", a: "Timing doesn't matter much — consistency is key. Many people add it to a post-workout shake or morning drink." },
       { q: "Is creatine safe long-term?", a: "Yes. It's one of the most studied supplements in history with an excellent safety profile for healthy adults." },
     ],
-    shopUrl: "https://shop.wellfino.com",
+    shopUrl: "https://shop.wellfino.com/products/creatine-monohydrate-supplement-300g-10-58oz",
   },
   {
     id: "collagen-peptides",
@@ -227,7 +229,7 @@ const products: Product[] = [
       { q: "Can I combine this with other supplements?", a: "Yes. Pairing with vitamin C supports your body's own collagen synthesis." },
       { q: "Is this safe for daily use?", a: "Absolutely. 10-15g daily is the range supported by most clinical research." },
     ],
-    shopUrl: "https://shop.wellfino.com",
+    shopUrl: "https://shop.wellfino.com/products/collagen-peptides-type-i-iii-supplement-350g-12-3oz",
   },
   {
     id: "magnesium-glycinate",
@@ -256,7 +258,7 @@ const products: Product[] = [
       { q: "Can I take this with sleep supplements?", a: "Yes. It pairs well with our Sleep Supplement and 5-HTP for comprehensive sleep support." },
       { q: "How long until I notice results?", a: "Many people notice improved sleep and reduced tension within the first week." },
     ],
-    shopUrl: "https://shop.wellfino.com",
+    shopUrl: "https://shop.wellfino.com/products/magnesium-glycinate-supplement-60-capsules",
   },
   {
     id: "turmeric-bioperine",
@@ -284,7 +286,7 @@ const products: Product[] = [
       { q: "Can I take this with other supplements?", a: "Yes. It pairs well with Omega-3 for comprehensive anti-inflammatory support." },
       { q: "Is this safe for daily use?", a: "Yes. Turmeric has a long history of safe use. Consult your doctor if you're on blood thinners." },
     ],
-    shopUrl: "https://shop.wellfino.com",
+    shopUrl: "https://shop.wellfino.com/collections/immunity-longevity",
   },
 ];
 

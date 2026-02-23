@@ -1,8 +1,8 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
-import CategoryCards from "@/components/CategoryCards";
-import TrustSection from "@/components/TrustSection";
+import FeaturedCoreEssentials from "@/components/FeaturedCoreEssentials";
+import WhyWellfino from "@/components/WhyWellfino";
 import FeaturedArticles from "@/components/FeaturedArticles";
 import EmailCapture from "@/components/EmailCapture";
 import ChatWidget from "@/components/ChatWidget";
@@ -13,8 +13,8 @@ const Index = () => {
       <Nav />
       <main>
         <HeroSection />
-        <CategoryCards />
-        <TrustSection />
+        <FeaturedCoreEssentials />
+        <WhyWellfino />
         <FeaturedArticles />
         <EmailCapture />
       </main>

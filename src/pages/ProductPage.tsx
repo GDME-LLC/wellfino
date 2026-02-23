@@ -4,6 +4,7 @@ import { useState } from "react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
+import ShopNowButton from "@/components/ShopNowButton";
 import products from "@/data/products";
 import productFrontFallback from "@/assets/wellfino-product-cutout.png";
 
@@ -118,15 +119,13 @@ const ProductPage = () => {
               <h1 className="mb-2 text-3xl font-bold tracking-tight sm:text-4xl">{product.name}</h1>
               <p className="mb-4 text-2xl font-bold text-primary">{product.price}</p>
               <p className="mb-6 leading-relaxed text-muted-foreground">{product.benefit}</p>
-              <a
-                href={product.shopUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <ShopNowButton
+                shopUrl={product.shopUrl}
                 className="inline-flex w-fit items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-medium text-primary-foreground shadow-lg transition-all hover:brightness-110 hover:shadow-xl"
               >
                 <ShoppingBag className="h-4 w-4" />
-                Add to Cart
-              </a>
+                Shop Now
+              </ShopNowButton>
             </div>
           </div>
         </section>

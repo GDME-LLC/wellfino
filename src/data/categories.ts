@@ -25,7 +25,7 @@ const categories: WellnessCategory[] = [
     description:
       "Core daily supplements like multivitamins, omega-3s, and vitamin D form the bedrock of any wellness routine. Think of these as the roots that nourish everything else.",
     topPicks: ["Multivitamin for Men (60 Capsules)", "Multivitamin for Women (60 Capsules)", "Omega 3 Fish Oil (60 Softgels)", "Vitamin K2 + D3 (60 Capsules)"],
-    shopUrl: "https://shop.wellfino.com",
+    shopUrl: "https://shop.wellfino.com/collections/core-daily",
     image: coreDailyImg,
   },
   {
@@ -35,7 +35,7 @@ const categories: WellnessCategory[] = [
     description:
       "Probiotics, digestive enzymes, and gut-soothing formulas keep your microbiome thriving and your digestion smooth.",
     topPicks: ["Probiotics (60 Capsules)", "Digestive Enzyme Blend (60 Capsules)"],
-    shopUrl: "https://shop.wellfino.com",
+    shopUrl: "https://shop.wellfino.com/collections/digest-gut",
     image: digestGutImg,
   },
   {
@@ -45,7 +45,7 @@ const categories: WellnessCategory[] = [
     description:
       "From magnesium glycinate to 5-HTP and our dedicated sleep formula, these picks help you unwind, rebalance, and wake up refreshed.",
     topPicks: ["5-HTP (60 Capsules)", "Sleep Supplement (60 Capsules)", "Magnesium Glycinate (60 Capsules)"],
-    shopUrl: "https://shop.wellfino.com",
+    shopUrl: "https://shop.wellfino.com/collections/calm-mood-sleep",
     image: calmMoodSleepImg,
   },
   {
@@ -55,7 +55,7 @@ const categories: WellnessCategory[] = [
     description:
       "Nootropics, adaptogens, and brain-supporting nutrients help you think clearly, stay focused, and perform at your mental best.",
     topPicks: ["Brain Support Complex (60 Capsules)", "Mushroom Blend (60 Capsules)"],
-    shopUrl: "https://shop.wellfino.com",
+    shopUrl: "https://shop.wellfino.com/collections/focus-cognition",
     image: focusCognitionImg,
   },
   {
@@ -65,7 +65,7 @@ const categories: WellnessCategory[] = [
     description:
       "Support your immune system and cellular health with antioxidants, adaptogens, and targeted nutrients designed to help you thrive for decades.",
     topPicks: ["Turmeric with BioPerine® (60 Capsules)", "CoQ10 Ubiquinone (30 Capsules)", "Acai Berry Complex (60 Capsules)", "Beetroot (60 Capsules)"],
-    shopUrl: "https://shop.wellfino.com",
+    shopUrl: "https://shop.wellfino.com/collections/immunity-longevity",
     image: immunityLongevityImg,
   },
   {
@@ -75,7 +75,7 @@ const categories: WellnessCategory[] = [
     description:
       "Performance supplements help you push further, recover faster, and feel stronger whether you're training hard or staying active.",
     topPicks: ["Creatine Monohydrate (300g)", "BCAA Grape (325g)", "BCAA Watermelon (325g)", "ION + Select Electrolyte (225g)", "L-Arginine (60 Capsules)"],
-    shopUrl: "https://shop.wellfino.com",
+    shopUrl: "https://shop.wellfino.com/collections/active-performance",
     image: activePerformanceImg,
   },
   {
@@ -85,7 +85,7 @@ const categories: WellnessCategory[] = [
     description:
       "Collagen and structural support nutrients nourish your skin, hair, nails, and joints—because looking good and feeling good go hand in hand.",
     topPicks: ["Collagen Peptides Type I & III (350g)"],
-    shopUrl: "https://shop.wellfino.com",
+    shopUrl: "https://shop.wellfino.com/collections/beauty-structure",
     image: beautyStructureImg,
   },
   {
@@ -95,7 +95,7 @@ const categories: WellnessCategory[] = [
     description:
       "Our gummy picks make daily supplementation delicious and easy—perfect for anyone who wants wellness without the fuss.",
     topPicks: ["Multivitamin Gummies for Adults (60 Gummies)", "Apple Cider Vinegar Gummies (60 Gummies)"],
-    shopUrl: "https://shop.wellfino.com",
+    shopUrl: "https://shop.wellfino.com/collections/gummies",
     image: gummiesImg,
   },
 ];

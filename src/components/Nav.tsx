@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const navLinks = [
+  { label: "Shop by Category", href: "/shop-by-category" },
   { label: "About", href: "/about" },
   { label: "Learn", href: "/learn" },
 ];
@@ -23,7 +24,7 @@ const Nav = () => {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <BrandLogo imageClassName="h-12" />
+          <BrandLogo imageClassName="h-20" wrapperClassName="p-1.5" />
         </Link>
 
         {/* Desktop links */}
@@ -57,6 +58,9 @@ const Nav = () => {
             <DropdownMenuContent align="end" className="w-48">
               <DropdownMenuItem asChild>
                 <a href="https://shop.wellfino.com">All Products</a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/shop-by-category">Shop by Category</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link to="/best-sellers">Best Sellers</Link>
