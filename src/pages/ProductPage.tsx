@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, ShoppingBag, ChevronDown, ChevronUp, Shield, FlaskConical, Eye } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
@@ -65,6 +65,153 @@ const getFrontImage = (product: (typeof products)[number]) => {
   return productFrontFallback;
 };
 
+const processedImageCache = new Map<string, string>();
+
+const toTransparentBackground = async (src: string) => {
+  if (processedImageCache.has(src)) {
+    return processedImageCache.get(src)!;
+  }
+
+  const image = await new Promise<HTMLImageElement>((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.decoding = "async";
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error("Image load failed"));
+    img.src = src;
+  }).catch(() => null);
+
+  if (!image) {
+    return src;
+  }
+
+  const canvas = document.createElement("canvas");
+  canvas.width = image.naturalWidth;
+  canvas.height = image.naturalHeight;
+  const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+  if (!ctx) {
+    return src;
+  }
+
+  ctx.drawImage(image, 0, 0);
+
+  let imageData: ImageData;
+  try {
+    imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  } catch {
+    return src;
+  }
+
+  const { data, width, height } = imageData;
+  const total = width * height;
+  const visited = new Uint8Array(total);
+  const queue = new Int32Array(total);
+  let head = 0;
+  let tail = 0;
+
+  const corners = [
+    0,
+    width - 1,
+    (height - 1) * width,
+    (height - 1) * width + (width - 1),
+  ];
+
+  const avg = corners.reduce(
+    (acc, pixelIndex) => {
+      const o = pixelIndex * 4;
+      acc.r += data[o];
+      acc.g += data[o + 1];
+      acc.b += data[o + 2];
+      return acc;
+    },
+    { r: 0, g: 0, b: 0 }
+  );
+
+  const bg = {
+    r: Math.round(avg.r / corners.length),
+    g: Math.round(avg.g / corners.length),
+    b: Math.round(avg.b / corners.length),
+  };
+
+  const isNearBackground = (pixelIndex: number) => {
+    const o = pixelIndex * 4;
+    if (data[o + 3] === 0) {
+      return false;
+    }
+    const dr = Math.abs(data[o] - bg.r);
+    const dg = Math.abs(data[o + 1] - bg.g);
+    const db = Math.abs(data[o + 2] - bg.b);
+    return dr + dg + db <= 78;
+  };
+
+  const enqueue = (pixelIndex: number) => {
+    if (pixelIndex < 0 || pixelIndex >= total || visited[pixelIndex]) {
+      return;
+    }
+    if (!isNearBackground(pixelIndex)) {
+      return;
+    }
+    visited[pixelIndex] = 1;
+    queue[tail++] = pixelIndex;
+  };
+
+  for (let x = 0; x < width; x++) {
+    enqueue(x);
+    enqueue((height - 1) * width + x);
+  }
+  for (let y = 1; y < height - 1; y++) {
+    enqueue(y * width);
+    enqueue(y * width + (width - 1));
+  }
+
+  while (head < tail) {
+    const idx = queue[head++];
+    const o = idx * 4;
+    data[o + 3] = 0;
+
+    const x = idx % width;
+    const y = (idx - x) / width;
+    if (x > 0) enqueue(idx - 1);
+    if (x < width - 1) enqueue(idx + 1);
+    if (y > 0) enqueue(idx - width);
+    if (y < height - 1) enqueue(idx + width);
+  }
+
+  ctx.putImageData(imageData, 0, 0);
+  const result = canvas.toDataURL("image/png");
+  processedImageCache.set(src, result);
+  return result;
+};
+
+const ProductHeroImage = ({ src, alt }: { src: string; alt: string }) => {
+  const [resolvedSrc, setResolvedSrc] = useState(src);
+
+  useEffect(() => {
+    let active = true;
+    setResolvedSrc(src);
+
+    toTransparentBackground(src).then((processed) => {
+      if (active) {
+        setResolvedSrc(processed);
+      }
+    });
+
+    return () => {
+      active = false;
+    };
+  }, [src]);
+
+  return (
+    <img
+      src={resolvedSrc}
+      alt={alt}
+      className="max-h-[520px] w-full object-contain"
+      loading="eager"
+    />
+  );
+};
+
 const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
   const product = products.find((p) => p.id === id);
@@ -100,11 +247,9 @@ const ProductPage = () => {
           <div className="grid gap-12 lg:grid-cols-2">
             {/* Left — Image placeholder */}
             <div className="flex items-center justify-center rounded-2xl bg-muted/50 p-12">
-              <img
+              <ProductHeroImage
                 src={getFrontImage(product)}
                 alt={`${product.name} front mockup`}
-                className="max-h-[520px] w-full object-contain"
-                loading="eager"
               />
             </div>
 
