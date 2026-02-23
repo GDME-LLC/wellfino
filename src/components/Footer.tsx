@@ -34,7 +34,7 @@ const Footer = () => {
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">Shop</h4>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
               <li><a href="https://shop.wellfino.com" className="transition-colors hover:text-primary">All Products</a></li>
-              <li><a href="https://shop.wellfino.com" className="transition-colors hover:text-primary">Best Sellers</a></li>
+              <li><Link to="/best-sellers" className="transition-colors hover:text-primary">Best Sellers</Link></li>
             </ul>
           </div>
 
