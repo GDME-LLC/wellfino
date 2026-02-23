@@ -14,8 +14,8 @@ const Index = () => {
       <Nav />
       <main>
         <HeroSection />
-        <BestSellers />
         <CategoryCards />
+        <BestSellers />
         <TrustSection />
         <FeaturedArticles />
         <EmailCapture />
