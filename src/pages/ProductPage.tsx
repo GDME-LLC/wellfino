@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, ShoppingBag, ChevronDown, ChevronUp, Shield, FlaskConical, Eye } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
@@ -65,203 +65,6 @@ const getFrontImage = (product: (typeof products)[number]) => {
   return productFrontFallback;
 };
 
-const processedImageCache = new Map<string, string>();
-
-const toTransparentBackground = async (src: string) => {
-  if (processedImageCache.has(src)) {
-    return processedImageCache.get(src)!;
-  }
-
-  const image = await new Promise<HTMLImageElement>((resolve, reject) => {
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.decoding = "async";
-    img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error("Image load failed"));
-    img.src = src;
-  }).catch(() => null);
-
-  if (!image) {
-    return src;
-  }
-
-  const maxSize = 1200;
-  const scale = Math.min(1, maxSize / Math.max(image.naturalWidth, image.naturalHeight));
-  const width = Math.max(1, Math.round(image.naturalWidth * scale));
-  const height = Math.max(1, Math.round(image.naturalHeight * scale));
-
-  const canvas = document.createElement("canvas");
-  canvas.width = width;
-  canvas.height = height;
-  const ctx = canvas.getContext("2d", { willReadFrequently: true });
-
-  if (!ctx) {
-    return src;
-  }
-
-  ctx.drawImage(image, 0, 0, width, height);
-
-  let imageData: ImageData;
-  try {
-    imageData = ctx.getImageData(0, 0, width, height);
-  } catch {
-    return src;
-  }
-
-  const { data } = imageData;
-  const total = width * height;
-  const visited = new Uint8Array(total);
-  const queue = new Int32Array(total);
-  let head = 0;
-  let tail = 0;
-
-  let rSum = 0;
-  let gSum = 0;
-  let bSum = 0;
-  let sampleCount = 0;
-
-  const sample = (pixelIndex: number) => {
-    const o = pixelIndex * 4;
-    rSum += data[o];
-    gSum += data[o + 1];
-    bSum += data[o + 2];
-    sampleCount++;
-  };
-
-  for (let x = 0; x < width; x++) {
-    sample(x);
-    sample((height - 1) * width + x);
-  }
-  for (let y = 1; y < height - 1; y++) {
-    sample(y * width);
-    sample(y * width + (width - 1));
-  }
-
-  const bg = {
-    r: Math.round(rSum / Math.max(1, sampleCount)),
-    g: Math.round(gSum / Math.max(1, sampleCount)),
-    b: Math.round(bSum / Math.max(1, sampleCount)),
-  };
-
-  const isNearBackground = (pixelIndex: number) => {
-    const o = pixelIndex * 4;
-    if (data[o + 3] === 0) {
-      return false;
-    }
-    const dr = Math.abs(data[o] - bg.r);
-    const dg = Math.abs(data[o + 1] - bg.g);
-    const db = Math.abs(data[o + 2] - bg.b);
-    const diff = dr + dg + db;
-    const max = Math.max(data[o], data[o + 1], data[o + 2]);
-    const min = Math.min(data[o], data[o + 1], data[o + 2]);
-    const isNeutral = max - min <= 22;
-    return diff <= 132 || (isNeutral && diff <= 165);
-  };
-
-  const enqueue = (pixelIndex: number) => {
-    if (pixelIndex < 0 || pixelIndex >= total || visited[pixelIndex]) {
-      return;
-    }
-    if (!isNearBackground(pixelIndex)) {
-      return;
-    }
-    visited[pixelIndex] = 1;
-    queue[tail++] = pixelIndex;
-  };
-
-  for (let x = 0; x < width; x++) {
-    enqueue(x);
-    enqueue((height - 1) * width + x);
-  }
-  for (let y = 1; y < height - 1; y++) {
-    enqueue(y * width);
-    enqueue(y * width + (width - 1));
-  }
-
-  while (head < tail) {
-    const idx = queue[head++];
-    const o = idx * 4;
-    data[o + 3] = 0;
-
-    const x = idx % width;
-    const y = (idx - x) / width;
-    if (x > 0) enqueue(idx - 1);
-    if (x < width - 1) enqueue(idx + 1);
-    if (y > 0) enqueue(idx - width);
-    if (y < height - 1) enqueue(idx + width);
-  }
-
-  // Feather near-background edge pixels to avoid a visible matte outline.
-  for (let y = 1; y < height - 1; y++) {
-    for (let x = 1; x < width - 1; x++) {
-      const idx = y * width + x;
-      const o = idx * 4;
-      if (data[o + 3] === 0) {
-        continue;
-      }
-
-      const n1 = (idx - 1) * 4;
-      const n2 = (idx + 1) * 4;
-      const n3 = (idx - width) * 4;
-      const n4 = (idx + width) * 4;
-      const touchesTransparent =
-        data[n1 + 3] === 0 ||
-        data[n2 + 3] === 0 ||
-        data[n3 + 3] === 0 ||
-        data[n4 + 3] === 0;
-
-      if (!touchesTransparent) {
-        continue;
-      }
-
-      const dr = Math.abs(data[o] - bg.r);
-      const dg = Math.abs(data[o + 1] - bg.g);
-      const db = Math.abs(data[o + 2] - bg.b);
-      const diff = dr + dg + db;
-      const max = Math.max(data[o], data[o + 1], data[o + 2]);
-      const min = Math.min(data[o], data[o + 1], data[o + 2]);
-      const isNeutral = max - min <= 24;
-
-      if (isNeutral && diff <= 180) {
-        data[o + 3] = Math.min(data[o + 3], 100);
-      }
-    }
-  }
-
-  ctx.putImageData(imageData, 0, 0);
-  const result = canvas.toDataURL("image/png");
-  processedImageCache.set(src, result);
-  return result;
-};
-
-const ProductHeroImage = ({ src, alt }: { src: string; alt: string }) => {
-  const [resolvedSrc, setResolvedSrc] = useState(src);
-
-  useEffect(() => {
-    let active = true;
-    setResolvedSrc(src);
-
-    toTransparentBackground(src).then((processed) => {
-      if (active) {
-        setResolvedSrc(processed);
-      }
-    });
-
-    return () => {
-      active = false;
-    };
-  }, [src]);
-
-  return (
-    <img
-      src={resolvedSrc}
-      alt={alt}
-      className="max-h-[520px] w-full object-contain"
-      loading="eager"
-    />
-  );
-};
-
 const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
   const product = products.find((p) => p.id === id);
@@ -272,7 +75,9 @@ const ProductPage = () => {
         <Nav />
         <main className="mx-auto max-w-3xl px-6 py-24 text-center">
           <h1 className="mb-4 text-3xl font-bold">Product not found</h1>
-          <Link to="/" className="text-primary underline underline-offset-2">Back to Home</Link>
+          <Link to="/" className="text-primary underline underline-offset-2">
+            Back to Home
+          </Link>
         </main>
         <Footer />
       </div>
@@ -286,7 +91,7 @@ const ProductPage = () => {
       <Nav />
       <main>
         {/* Overview */}
-        <section className="mx-auto max-w-5xl px-6 pt-12 pb-16">
+        <section className="mx-auto max-w-5xl px-6 pb-16 pt-12">
           <Link
             to="/"
             className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
@@ -295,15 +100,17 @@ const ProductPage = () => {
           </Link>
 
           <div className="grid gap-12 lg:grid-cols-2">
-            {/* Left — Image placeholder */}
-            <div className="flex items-center justify-center rounded-2xl bg-muted/50 p-12">
-              <ProductHeroImage
+            {/* Left - Product image */}
+            <div className="flex items-center justify-center rounded-2xl bg-transparent p-12">
+              <img
                 src={getFrontImage(product)}
                 alt={`${product.name} front mockup`}
+                className="max-h-[520px] w-full object-contain"
+                loading="eager"
               />
             </div>
 
-            {/* Right — Info */}
+            {/* Right - Info */}
             <div className="flex flex-col justify-center">
               <span className="mb-2 text-xs font-medium uppercase tracking-wider text-primary">
                 {product.category}
@@ -315,7 +122,7 @@ const ProductPage = () => {
                 href={product.shopUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex w-fit items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-medium text-primary-foreground shadow-lg transition-all hover:shadow-xl hover:brightness-110"
+                className="inline-flex w-fit items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-medium text-primary-foreground shadow-lg transition-all hover:brightness-110 hover:shadow-xl"
               >
                 <ShoppingBag className="h-4 w-4" />
                 Add to Cart
@@ -411,7 +218,7 @@ const ProductPage = () => {
                     className="group rounded-2xl border border-border/50 bg-card p-6 transition-all hover:border-primary/30 hover:shadow-lg"
                   >
                     <span className="text-xs font-medium uppercase tracking-wider text-primary">{p.category}</span>
-                    <h3 className="mt-1 mb-1 font-semibold transition-colors group-hover:text-primary">{p.name}</h3>
+                    <h3 className="mb-1 mt-1 font-semibold transition-colors group-hover:text-primary">{p.name}</h3>
                     <p className="text-sm text-muted-foreground">{p.benefit}</p>
                     <p className="mt-3 font-bold">{p.price}</p>
                   </Link>
@@ -433,7 +240,11 @@ const FaqItem = ({ q, a }: { q: string; a: string }) => {
     <div className="border-b border-border/50 last:border-0">
       <button onClick={() => setOpen(!open)} className="flex w-full items-center justify-between py-5 text-left">
         <span className="pr-4 text-sm font-medium">{q}</span>
-        {open ? <ChevronUp className="h-4 w-4 shrink-0 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" />}
+        {open ? (
+          <ChevronUp className="h-4 w-4 shrink-0 text-muted-foreground" />
+        ) : (
+          <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" />
+        )}
       </button>
       {open && <p className="pb-5 text-sm leading-relaxed text-muted-foreground">{a}</p>}
     </div>
